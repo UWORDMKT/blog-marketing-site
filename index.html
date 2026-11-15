@@ -1,0 +1,382 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>병원·학원 블로그 글 대행 | 무료 상담</title>
+<meta name="description" content="병원·학원 블로그 글을 대신 써 드리는 블로그 마케팅 대행입니다. 원장님은 진료와 수업에 집중하세요.">
+<meta property="og:title" content="병원·학원 블로그 글, 대신 써 드립니다">
+<meta property="og:description" content="원장님은 진료·수업에 집중하세요. 블로그 글은 제가 대신 씁니다.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<style>
+  :root{
+    --paper:#EDEEE9;      /* 원고지 바탕 */
+    --paper-2:#E2E4DD;    /* 한 톤 낮은 칸 */
+    --ink:#1A1C20;        /* 글자 */
+    --ink-2:#4A4E55;      /* 보조 글자 */
+    --rule:#C9CBC2;       /* 칸 선 */
+    --blue:#2F3FD8;       /* 잉크 파랑(포인트 하나) */
+    --blue-soft:#D6DAF6;
+    --white:#FFFFFF;
+    --radius:2px;
+    --max:1180px;
+    --pad:clamp(16px,4vw,40px);
+  }
+  *{box-sizing:border-box}
+  [hidden]{display:none!important}
+  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+  body{margin:0;background:var(--paper);color:var(--ink);
+    font-family:"Pretendard Variable",Pretendard,-apple-system,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+    font-size:17px;line-height:1.7;word-break:keep-all;overflow-wrap:break-word}
+  ::selection{background:var(--blue);color:#fff}
+  a{color:inherit}
+  :focus-visible{outline:3px solid var(--blue);outline-offset:3px}
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 var(--pad)}
+
+  /* 원고지 격자 — 첫 화면 뒤에만 */
+  .grid-bg{background-image:
+      linear-gradient(var(--rule) 1px,transparent 1px),
+      linear-gradient(90deg,var(--rule) 1px,transparent 1px);
+    background-size:56px 56px;background-position:-1px -1px}
+
+  /* 상단 메뉴 */
+  header.top{position:sticky;top:0;z-index:10;background:color-mix(in srgb,var(--paper) 92%,transparent);
+    backdrop-filter:blur(8px);border-bottom:1px solid var(--rule)}
+  header.top .wrap{display:flex;align-items:center;justify-content:space-between;height:64px;gap:16px}
+  .brand{font-weight:800;font-size:18px;letter-spacing:-.02em;text-decoration:none}
+  .brand span{color:var(--ink-2);font-weight:500}
+  nav.links{display:flex;gap:28px;font-size:15px;font-weight:500}
+  nav.links a{text-decoration:none;color:var(--ink-2)}
+  nav.links a:hover{color:var(--ink)}
+
+  /* 버튼 */
+  .btn{position:relative;display:inline-flex;align-items:center;justify-content:center;gap:10px;
+    min-height:52px;padding:0 26px;border:2px solid var(--ink);border-radius:var(--radius);
+    background:var(--ink);color:var(--paper);font:inherit;font-weight:700;font-size:17px;
+    text-decoration:none;cursor:pointer;overflow:hidden;isolation:isolate;transition:color .3s ease-out}
+  .btn::before{content:"";position:absolute;inset:0;background:var(--blue);transform:translateX(-101%);
+    transition:transform .3s ease-out;z-index:-1}
+  .btn:hover::before{transform:translateX(0)}
+  .btn:hover{border-color:var(--blue)}
+  .btn.small{min-height:42px;padding:0 16px;font-size:15px}
+  .btn.ghost{background:transparent;color:var(--ink)}
+  .btn.ghost:hover{color:#fff}
+  .btn[disabled]{opacity:.6;cursor:wait}
+
+  /* 첫 화면 */
+  .hero{position:relative;border-bottom:1px solid var(--ink)}
+  .hero .wrap{min-height:calc(100svh - 64px);display:flex;flex-direction:column;justify-content:center;
+    padding-top:56px;padding-bottom:56px}
+  .hero-for{display:inline-block;align-self:flex-start;background:var(--paper);border:1px solid var(--ink);
+    padding:4px 12px;font-size:15px;font-weight:600;margin:0 0 28px}
+  .hero h1{margin:0;font-weight:850;letter-spacing:-.055em;line-height:1.02;
+    font-size:clamp(44px,8.4vw,124px)}
+  .hero h1 .line{display:block}
+  .hero h1 .line.quiet{color:var(--ink-2);font-weight:700}
+  .hero h1 .typed{background:var(--paper)}
+  .caret{display:inline-block;width:.06em;height:.9em;margin-left:.04em;background:var(--blue);
+    vertical-align:-.08em;animation:blink 1s steps(1) infinite}
+  @keyframes blink{50%{opacity:0}}
+  .hero-sub{max-width:34em;margin:32px 0 0;font-size:clamp(17px,1.6vw,20px);color:var(--ink-2);
+    background:var(--paper)}
+  .hero-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:32px}
+
+  /* 공통 칸 */
+  section.block{padding:clamp(72px,10vw,128px) 0;border-bottom:1px solid var(--ink)}
+  .head{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:32px;align-items:end;margin-bottom:56px}
+  .head h2{margin:0;font-weight:850;letter-spacing:-.05em;line-height:1.05;font-size:clamp(34px,5vw,64px)}
+  .head p{margin:0;color:var(--ink-2);max-width:32em}
+
+  /* 진행 순서 */
+  ol.steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);
+    border-top:2px solid var(--ink)}
+  ol.steps li{padding:28px 24px 8px 0;border-right:1px solid var(--rule);margin-right:24px}
+  ol.steps li:last-child{border-right:0;margin-right:0}
+  .step-no{display:block;font-size:56px;font-weight:300;line-height:1;color:var(--blue);letter-spacing:-.04em}
+  ol.steps h3{margin:18px 0 6px;font-size:21px;letter-spacing:-.02em}
+  ol.steps p{margin:0;color:var(--ink-2);font-size:16px}
+
+  /* 글 샘플 */
+  .samples{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  .sample{background:var(--white);border:1px solid var(--rule);padding:28px;min-height:260px;
+    display:flex;flex-direction:column;justify-content:space-between}
+  .sample .kind{font-size:14px;font-weight:600;color:var(--ink-2)}
+  .sample .lines{display:grid;gap:10px;margin:20px 0}
+  .sample .lines i{display:block;height:10px;background:var(--paper-2)}
+  .sample .lines i:nth-child(1){width:80%;height:18px;background:var(--rule)}
+  .sample .lines i:nth-child(3){width:92%}
+  .sample .lines i:nth-child(4){width:64%}
+  .sample .soon{font-size:15px;color:var(--ink-2);margin:0}
+  .sample a.read{font-weight:700;color:var(--blue)}
+  .channels{display:flex;flex-wrap:wrap;gap:12px;margin-top:32px;align-items:center}
+  .channels .note{color:var(--ink-2);font-size:15px}
+
+  /* 비용 */
+  .price{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:32px;align-items:center}
+  .price .big{margin:0;font-weight:850;letter-spacing:-.05em;line-height:1.1;font-size:clamp(30px,4.2vw,54px)}
+  .price ul{margin:0;padding:0;list-style:none;border-top:1px solid var(--ink)}
+  .price li{padding:16px 0;border-bottom:1px solid var(--rule)}
+
+  /* 문의 폼 */
+  .contact{background:var(--ink);color:var(--paper);border-bottom:0}
+  .contact .head p{color:#B9BCC2}
+  form.inq{display:grid;grid-template-columns:1fr 1fr;gap:20px 24px;max-width:860px}
+  .field{display:grid;gap:8px}
+  .field.full{grid-column:1/-1}
+  .field label{font-weight:600;font-size:16px}
+  .field label small{font-weight:400;color:#A3A7AE;margin-left:6px}
+  .field input,.field select,.field textarea{width:100%;font:inherit;font-size:17px;color:var(--ink);
+    background:var(--paper);border:2px solid var(--paper);border-radius:var(--radius);padding:13px 14px}
+  .field textarea{min-height:140px;resize:vertical}
+  .field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px var(--blue-soft)}
+  .consent{grid-column:1/-1;display:flex;gap:12px;align-items:flex-start;font-size:15px;color:#C8CBD0}
+  .consent input{width:22px;height:22px;margin:2px 0 0;accent-color:var(--blue);flex:none}
+  .consent strong{color:var(--paper)}
+  .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+  .submit-row{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:16px;align-items:center}
+  .contact .btn{background:var(--paper);color:var(--ink);border-color:var(--paper)}
+  .contact .btn:hover{color:#fff;border-color:var(--blue)}
+  .msg{margin:0;font-weight:600}
+  .msg.ok{color:#9EE6B0}
+  .msg.err{color:#FFB4A8}
+
+  footer{background:var(--ink);color:#8C9098;font-size:14px;border-top:1px solid #33363C}
+  footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;padding-top:28px;padding-bottom:28px}
+
+  /* 첫 화면 등장 (한 번만) */
+  @media (prefers-reduced-motion:no-preference){
+    .rise{opacity:0;transform:translateY(24px);animation:rise .8s cubic-bezier(.16,1,.3,1) forwards}
+    .rise.d1{animation-delay:.1s}.rise.d2{animation-delay:.2s}.rise.d3{animation-delay:.35s}
+    @keyframes rise{to{opacity:1;transform:none}}
+  }
+  @media (prefers-reduced-motion:reduce){ .caret{animation:none} .btn::before{transition:none} }
+
+  @media (max-width:900px){
+    nav.links{display:none}
+    .head,.price{grid-template-columns:1fr;gap:16px}
+    ol.steps{grid-template-columns:1fr 1fr;border-top:0}
+    ol.steps li{border-right:0;margin-right:0;border-top:2px solid var(--ink);padding-right:16px}
+    .samples{grid-template-columns:1fr}
+    .sample{min-height:200px}
+  }
+  @media (max-width:560px){
+    body{font-size:16px}
+    .grid-bg{background-size:40px 40px}
+    ol.steps{grid-template-columns:1fr}
+    form.inq{grid-template-columns:1fr}
+    .hero-actions .btn{width:100%}
+    .submit-row .btn{width:100%}
+    header.top .btn.small{padding:0 12px}
+  }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="맨 위로">블로그 글 대행 <span>병원·학원</span></a>
+    <nav class="links" aria-label="메뉴">
+      <a href="#how">진행 방식</a>
+      <a href="#samples">글 샘플</a>
+      <a href="#price">비용</a>
+    </nav>
+    <a class="btn small" href="#contact">무료 상담 신청</a>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero grid-bg">
+    <div class="wrap">
+      <p class="hero-for rise">병원·학원 원장님께</p>
+      <h1>
+        <span class="line quiet rise d1">원장님은 진료·수업에 집중하세요.</span>
+        <span class="line rise d2"><span class="typed" id="typed">블로그 글은 제가 대신 씁니다.</span><span class="caret" aria-hidden="true"></span></span>
+      </h1>
+      <p class="hero-sub rise d3">병원·학원 블로그에 올릴 글을 대신 써 드리는 블로그 마케팅 대행이에요. 네이버에서 검색하는 환자·학부모가 읽을 글을, 원장님 대신 꾸준히 씁니다.</p>
+      <div class="hero-actions rise d3">
+        <a class="btn" href="#contact">무료 상담 신청</a>
+        <a class="btn ghost" href="#samples">글 샘플 보기</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="how">
+    <div class="wrap">
+      <div class="head">
+        <h2>이렇게 진행해요</h2>
+        <p>원장님이 하실 일은 상담과 마지막 확인뿐이에요. 글을 쓰는 일은 제가 맡아요.</p>
+      </div>
+      <ol class="steps">
+        <li><span class="step-no">1</span><h3>무료 상담</h3><p>병원·학원의 상황과 지금 블로그를 함께 살펴봐요.</p></li>
+        <li><span class="step-no">2</span><h3>글 방향 정하기</h3><p>어떤 손님에게, 어떤 이야기를 쓸지 정해요.</p></li>
+        <li><span class="step-no">3</span><h3>글 작성</h3><p>정한 방향대로 제가 글을 써요.</p></li>
+        <li><span class="step-no">4</span><h3>확인·발행</h3><p>원장님이 확인하신 글만 블로그에 올려요.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="block" id="samples">
+    <div class="wrap">
+      <div class="head">
+        <h2>직접 쓴 글을 먼저 보세요</h2>
+        <p>맡기기 전에 어떤 글을 쓰는지 확인하실 수 있어요. 제가 운영하는 블로그도 그대로 보여 드려요.</p>
+      </div>
+      <!-- 글 샘플: 실제 글 주소가 생기면 SAMPLES 목록(아래 스크립트)에 넣는다 -->
+      <div class="samples" id="sampleList"></div>
+      <div class="channels" id="channels"></div>
+    </div>
+  </section>
+
+  <section class="block" id="price">
+    <div class="wrap price">
+      <p class="big">비용은 상담에서 필요한 글의 양을 듣고 안내해 드려요.</p>
+      <ul>
+        <li>상담은 무료예요.</li>
+        <li>상담을 받았다고 꼭 맡기셔야 하는 건 아니에요.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 후기 자리: 실제 고객 후기가 생기면 hidden을 지우고 내용을 넣는다. 지어낸 후기는 넣지 않는다 -->
+  <section class="block" id="reviews" hidden>
+    <div class="wrap">
+      <div class="head"><h2>맡겨 보신 원장님 이야기</h2><p></p></div>
+    </div>
+  </section>
+
+  <section class="block contact" id="contact">
+    <div class="wrap">
+      <div class="head">
+        <h2>무료 상담 신청</h2>
+        <p>남겨 주신 내용을 확인하고 적어 주신 연락처로 연락드릴게요.</p>
+      </div>
+      <form class="inq" id="inqForm" novalidate>
+        <div class="field">
+          <label for="f-name">이름</label>
+          <input id="f-name" name="name" autocomplete="name" maxlength="50" required>
+        </div>
+        <div class="field">
+          <label for="f-contact">연락처 <small>전화번호나 이메일</small></label>
+          <input id="f-contact" name="contact" autocomplete="tel" maxlength="100" required>
+        </div>
+        <div class="field">
+          <label for="f-type">업종</label>
+          <select id="f-type" name="business_type">
+            <option value="">골라 주세요</option>
+            <option>병원</option>
+            <option>학원</option>
+            <option>기타</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="f-blog">운영 중인 블로그 주소 <small>없으면 비워 두세요</small></label>
+          <input id="f-blog" name="blog_url" inputmode="url" maxlength="300" placeholder="blog.naver.com/...">
+        </div>
+        <div class="field full">
+          <label for="f-msg">궁금한 점</label>
+          <textarea id="f-msg" name="message" maxlength="1000" placeholder="예: 한 달에 글을 몇 개쯤 올리면 좋을지 궁금해요."></textarea>
+        </div>
+        <div class="hp" aria-hidden="true">
+          <label for="f-website">웹사이트</label>
+          <input id="f-website" name="website" tabindex="-1" autocomplete="off">
+        </div>
+        <label class="consent">
+          <input type="checkbox" id="f-consent" name="consent">
+          <span><strong>개인정보 수집·이용에 동의해요 (필수)</strong><br>
+          이름·연락처·업종·블로그 주소·문의 내용을 상담 연락을 위해서만 쓰고, 상담이 끝나면 지워요.</span>
+        </label>
+        <div class="submit-row">
+          <button class="btn" type="submit" id="submitBtn">무료 상담 신청하기</button>
+          <p class="msg" id="formMsg" role="status" aria-live="polite"></p>
+        </div>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>병원·학원 블로그 글 대행</span>
+    <span>문의는 위 상담 신청으로 받아요.</span>
+  </div>
+</footer>
+
+<script>
+  // ── 여기만 고치면 돼요 ─────────────────────────────
+  // 실제 글 샘플 주소가 생기면 url에 넣으세요. 비어 있으면 "준비 중"으로 보여요.
+  const SAMPLES = [
+    { kind: '병원 블로그 글', title: '', url: '' },
+    { kind: '학원 블로그 글', title: '', url: '' },
+    { kind: '정보 글', title: '', url: '' },
+  ];
+  // 내 블로그·인스타 주소. 비어 있으면 버튼이 보이지 않아요.
+  const CHANNELS = { blog: '', instagram: '' };
+  // ───────────────────────────────────────────────
+
+  const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  document.getElementById('sampleList').innerHTML = SAMPLES.map((s) => `
+    <article class="sample">
+      <div>
+        <span class="kind">${esc(s.kind)}</span>
+        <div class="lines" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+      </div>
+      ${s.url
+        ? `<a class="read" href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.title || '글 읽어 보기')}</a>`
+        : `<p class="soon">샘플 글을 준비하고 있어요. 상담 때 바로 보여 드려요.</p>`}
+    </article>`).join('');
+
+  const ch = [];
+  if (CHANNELS.blog) ch.push(`<a class="btn ghost" href="${esc(CHANNELS.blog)}" target="_blank" rel="noopener">제 블로그 보기</a>`);
+  if (CHANNELS.instagram) ch.push(`<a class="btn ghost" href="${esc(CHANNELS.instagram)}" target="_blank" rel="noopener">인스타그램 보기</a>`);
+  document.getElementById('channels').innerHTML = ch.length ? ch.join('') : '';
+
+  // 첫 화면: 두 번째 줄이 한 글자씩 써지는 장면 (한 번만)
+  (function () {
+    const el = document.getElementById('typed');
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const text = el.textContent;
+    el.setAttribute('aria-label', text);
+    el.textContent = '';
+    let i = 0;
+    setTimeout(function tick() {
+      el.textContent = text.slice(0, ++i);
+      if (i < text.length) setTimeout(tick, 70);
+    }, 700);
+  })();
+
+  // 문의 보내기
+  const form = document.getElementById('inqForm');
+  const msg = document.getElementById('formMsg');
+  const btn = document.getElementById('submitBtn');
+  const show = (t, bad) => { msg.textContent = t; msg.className = 'msg ' + (bad ? 'err' : 'ok'); };
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const f = form.elements;
+    if (!f.name.value.trim()) { f.name.focus(); return show('이름을 적어 주세요.', true); }
+    if (!f.contact.value.trim()) { f.contact.focus(); return show('연락처를 적어 주세요.', true); }
+    if (!f.consent.checked) { f.consent.focus(); return show('개인정보 수집·이용에 동의해 주세요.', true); }
+    btn.disabled = true; show('보내는 중이에요…');
+    try {
+      const r = await fetch('/api/inquiry', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: f.name.value, contact: f.contact.value,
+          business_type: f.business_type.value, blog_url: f.blog_url.value,
+          message: f.message.value, website: f.website.value,
+          consent: f.consent.checked,
+        }),
+      });
+      const data = await r.json().catch(() => ({}));
+      if (!r.ok) throw new Error(data.error || '보내지 못했어요. 잠시 뒤 다시 시도해 주세요.');
+      form.reset();
+      show('문의가 접수됐어요. 확인 후 연락드릴게요.');
+    } catch (err) {
+      show(err.message || '보내지 못했어요. 잠시 뒤 다시 시도해 주세요.', true);
+    } finally { btn.disabled = false; }
+  });
+</script>
+</body>
+</html>
