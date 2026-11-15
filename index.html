@@ -138,6 +138,9 @@
   .submit-row{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:16px;align-items:center}
   .contact .btn{background:var(--paper);color:var(--ink);border-color:var(--paper)}
   .contact .btn:hover{color:#fff;border-color:var(--blue)}
+  .soon-box{max-width:860px;border:2px solid #4A4E55;padding:32px clamp(20px,4vw,40px)}
+  .soon-box p{margin:0;color:#C8CBD0}
+  .soon-box .soon-title{color:var(--paper);font-size:clamp(24px,3vw,34px);font-weight:800;letter-spacing:-.03em;margin-bottom:8px}
   .msg{margin:0;font-weight:600}
   .msg.ok{color:#9EE6B0}
   .msg.err{color:#FFB4A8}
@@ -252,7 +255,12 @@
         <h2>무료 상담 신청</h2>
         <p>남겨 주신 내용을 확인하고 적어 주신 연락처로 연락드릴게요.</p>
       </div>
-      <form class="inq" id="inqForm" novalidate>
+      <!-- 상담 신청 폼은 문의 저장(관리자 페이지)을 만들 때 다시 연다: 아래 form의 hidden을 지우고 이 안내를 지운다 -->
+      <div class="soon-box" id="formSoon">
+        <p class="soon-title">상담 신청은 곧 열려요.</p>
+        <p>신청을 받을 준비를 하고 있어요. 조금만 기다려 주세요.</p>
+      </div>
+      <form class="inq" id="inqForm" novalidate hidden>
         <div class="field">
           <label for="f-name">이름</label>
           <input id="f-name" name="name" autocomplete="name" maxlength="50" required>
